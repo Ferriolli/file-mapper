@@ -10,14 +10,17 @@ class Main:
     """
 
     def __init__(self):
-        file = 'data/random-dataset.csv'
-        header = FileHandler.read_header(file)
+        self._file_name = 'data/random-dataset.csv'
+
+    def run(self):
+        header = FileHandler.read_header(self._file_name)
         mp = Mapper(header)
         mapper = mp.find_mapper_for_file()
-        extractor = Extractor(mapper, file)
+        extractor = Extractor(mapper, self._file_name)
         df_save = extractor.create_df()
-        mongo.insert_data(df_save, 'finally')
+        mongo.insert_data(df_save, mapper['collection_name'])
 
 
 if __name__ == '__main__':
     main_obj = Main()
+    main_obj.run()

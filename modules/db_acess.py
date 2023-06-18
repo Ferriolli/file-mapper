@@ -7,9 +7,9 @@ class MongoManager:
         client = MongoClient('localhost', 27017)
         self._db = client['file-mapper']
 
-    def insert_data(self, df, collection):
+    def insert_data(self, df, collection_name):
         data_to_save = df.to_dict(orient='records')
-        self._db[collection].insert_many(data_to_save)
+        self._db[collection_name].insert_many(data_to_save)
 
 
 mongo = MongoManager()
