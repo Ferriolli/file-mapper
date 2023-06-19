@@ -6,7 +6,6 @@
 
 An application to read CSV/EXCEL/TXT files and send data to MongoDB for analysis.
 
-This application reads a file and a json/yaml configuration file to extract the desired info\
-from the file.
+This application reads a file and a json/yaml configuration file to extract the desired info from the file.
 
 It can extract the information and use regex to replace any information on any column.
