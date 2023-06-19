@@ -2,6 +2,7 @@ from modules.file_handler import FileHandler
 from modules.mapper import Mapper
 from modules.extractor import Extractor
 from modules.db_acess import mongo
+from modules.execution_log import log_info
 
 
 class Main:
