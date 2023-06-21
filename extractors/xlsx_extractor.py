@@ -8,6 +8,9 @@ class ExcelExtractor(ExtractorBase):
         super().__init__(file_name)
         self._full_df = pd.read_excel(file_name)
 
+    def __str__(self):
+        return 'xlsx file extractor'
+
     def get_header(self):
         df = pd.read_excel(self._file_name, nrows=5)
         return df.to_csv(sep=',', index_label=False).split('\n')[0]
