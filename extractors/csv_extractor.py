@@ -1,6 +1,5 @@
 import pandas as pd
 from extractors.extractor_base import ExtractorBase
-from loguru import logger
 from modules.file_handler import FileHandler
 from modules.db_acess import mongo
 
@@ -9,6 +8,9 @@ class CSVExtractor(ExtractorBase):
     def __init__(self, file_name: str):
         super().__init__(file_name)
         self._full_df = self.load_df(self._mapper)
+
+    def __str__(self):
+        return 'csv file extractor'
 
     def get_header(self):
         file = FileHandler().open_file(self._file_name)

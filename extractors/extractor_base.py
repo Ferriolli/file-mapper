@@ -14,16 +14,12 @@ class ExtractorBase(ABC):
         self._file_name = file_name
         self._mapper = Mapper.find_mapper_for_file(self.get_header())
 
+    @log_info
     def create_df(self):
         for index, info in self._mapper['columns'].items():
             self._extracted_df[info['name']] = self._full_df.iloc[:, int(index)]
-            if 'regex' in info:
-                if not isinstance(info['regex'], list):
-                    raise MalformedRegexFindSubException
-                for regex in info['regex']:
-                    logger.info(f"Replacing: {regex['find']} for {regex['sub']} on column {info['name']}")
-                    self.replace_content(info['name'], regex)
         self.add_system_columns()
+        self.replace_content(self._mapper)
         self.change_dtypes(self._mapper)
 
     @abstractmethod
@@ -46,7 +42,13 @@ class ExtractorBase(ABC):
             self._extracted_df[info['name']] = self._extracted_df[info['name']].astype(dtypes[info['type']])
 
     @log_info
-    def replace_content(self, column: str, replacement: Dict):
-        self._extracted_df[column] = self._extracted_df[column].str.replace(fr'{replacement["find"]}',
-                                                                            replacement['sub'],
-                                                                            regex=True)
+    def replace_content(self, mapper: Dict):
+        for index, info in mapper['columns'].items():
+            if 'regex' in info:
+                if not isinstance(info['regex'], list):
+                    raise MalformedRegexFindSubException
+                for regex in info['regex']:
+                    logger.info(f"Replacing: {regex['find']} for {regex['sub']} on column {info['name']}")
+                    self._extracted_df[info['name']] = self._extracted_df[info['name']].str.replace(fr'{regex["find"]}',
+                                                                                                    regex['sub'],
+                                                                                                    regex=True)
