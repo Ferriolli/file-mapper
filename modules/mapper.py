@@ -10,16 +10,17 @@ class Mapper:
     """
     This class is responsible for finding the correct mapper for the file
     """
-    def __init__(self, file_header):
-        self._file_header = file_header
+    def __init__(self):
+        pass
 
+    @classmethod
     @log_info
-    def find_mapper_for_file(self):
+    def find_mapper_for_file(cls, header):
         identified = []
         for file in os.listdir('mappers/'):
             mapper = FileHandler.read_mapper(f'mappers/{file}')
             identifier = mapper['identifier']
-            if re.match(fr'{identifier}', self._file_header):
+            if re.match(fr'{identifier}', header):
                 identified.append(file)
 
         if len(identified) > 1:

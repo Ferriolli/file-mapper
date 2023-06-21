@@ -1,8 +1,6 @@
-from modules.file_handler import FileHandler
-from modules.mapper import Mapper
-from modules.extractor import Extractor
-from modules.db_acess import mongo
-from modules.execution_log import log_info
+from extractors.csv_extractor import CSVExtractor
+from extractors.xlsx_extractor import ExcelExtractor
+from modules.custom_exceptions import UnexpectedFileTypeException
 
 
 class Main:
@@ -11,15 +9,22 @@ class Main:
     """
 
     def __init__(self):
-        self._file_name = 'data/random-dataset.csv'
+        self._file_name = 'data/MOCK_DATA.xlsx'
 
     def run(self):
-        header = FileHandler.read_header(self._file_name)
-        mp = Mapper(header)
-        mapper = mp.find_mapper_for_file()
-        extractor = Extractor(mapper, self._file_name)
-        df_save = extractor.create_df()
-        mongo.insert_data(df_save, mapper['collection_name'])
+        extractor = self._get_extractor()
+        extractor.run()
+
+    def _get_extractor(self):
+        ext = self._file_name.split('.')[1]
+
+        if ext.lower() == 'csv':
+            extractor = CSVExtractor(self._file_name)
+        elif ext.lower() == 'xlsx':
+            extractor = ExcelExtractor(self._file_name)
+        else:
+            raise UnexpectedFileTypeException(f'The file type {ext} is not expected')
+        return extractor
 
 
 if __name__ == '__main__':
