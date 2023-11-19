@@ -1,0 +1,13 @@
+{
+  "duplicate_keys": [],
+  "keep": false,
+  "schema": {
+    "texto": [],
+    "tamanho_texto": [],
+    "porcentagem_maiusculas": [],
+    "porcentagem_minusculas": [],
+    "porcentagem_digitos": [],
+    "label": [],
+    "creation_date": []
+  }
+}

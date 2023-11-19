@@ -27,3 +27,15 @@ class MalformedRegexFindSubException(Exception):
     def __init__(self, message="'regex' must be an instance of list with dicts inside."):
         self.message = message
         super().__init__(self.message)
+
+
+class ValidationMapperNotFoundException(Exception):
+    def __init__(self, message="Validation mapper not found"):
+        self.message = message
+        super().__init__(self.message)
+
+
+class MissingKeyInMapperException(Exception):
+    def __init__(self, key: str, mapper: str):
+        self.message = f"Missing a mandatory key inside validation mapper ({mapper}): {key}"
+        super().__init__(self.message)

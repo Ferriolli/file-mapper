@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from modules.execution_log import log_info
+from modules.file_handler import FileHandler
 from modules.custom_exceptions import MalformedRegexFindSubException
-from modules.mapper import Mapper
 from datetime import datetime
 from typing import Dict
 import pandas as pd
@@ -12,15 +12,15 @@ class ExtractorBase(ABC):
     def __init__(self, file_name: str):
         self._extracted_df = pd.DataFrame()
         self._file_name = file_name
-        self._mapper = Mapper.find_mapper_for_file(self.get_header())
+        self.mapper = FileHandler.find_mapper_for_file(self.get_header())
 
     @log_info
     def create_df(self):
-        for index, info in self._mapper['columns'].items():
+        for index, info in self.mapper['columns'].items():
             self._extracted_df[info['name']] = self._full_df.iloc[:, int(index)]
         self.add_system_columns()
-        self.replace_content(self._mapper)
-        self.change_dtypes(self._mapper)
+        self.replace_content(self.mapper)
+        self.change_dtypes(self.mapper)
 
     @abstractmethod
     def get_header(self):

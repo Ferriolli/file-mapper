@@ -17,4 +17,4 @@ class ExcelExtractor(ExtractorBase):
 
     def run(self):
         self.create_df()
-        mongo.insert_data(self._extracted_df, self._mapper['collection_name'])
+        mongo.insert_data(self._extracted_df, self.mapper['collection_name'])

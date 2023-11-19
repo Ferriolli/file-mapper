@@ -7,7 +7,7 @@ from modules.db_acess import mongo
 class CSVExtractor(ExtractorBase):
     def __init__(self, file_name: str):
         super().__init__(file_name)
-        self._full_df = self.load_df(self._mapper)
+        self._full_df = self.load_df(self.mapper)
 
     def __str__(self):
         return 'csv file extractor'
@@ -23,4 +23,4 @@ class CSVExtractor(ExtractorBase):
 
     def run(self):
         self.create_df()
-        mongo.insert_data(self._extracted_df, self._mapper['collection_name'])
+        mongo.insert_data(self._extracted_df, self.mapper['collection_name'])
