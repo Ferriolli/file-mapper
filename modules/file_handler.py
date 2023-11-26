@@ -32,7 +32,7 @@ class FileHandler:
     @log_info
     def read_mapper(cls, file_path: str) -> Dict:
         """
-        This functions reads a mapper file, basically a json containing the necessary information to
+        This function reads a mapper file, basically a json containing the necessary information to
         extract or validate a file.
         @param file_path: The path leading to a file, may or may not contain .json or .yaml in the end eg:
             a file is named config_file.json

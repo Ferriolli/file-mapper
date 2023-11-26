@@ -2,9 +2,11 @@
     "duplicate_keys": [],
     "keep": false,
     "schema": {
-        "nome": [],
-        "numerico": [],
-        "numerico_2": [],
-        "texto": []
+        "nome": {
+            "max_char": 10
+        },
+        "numerico": {},
+        "numerico_2": {},
+        "texto": {}
     }
 }

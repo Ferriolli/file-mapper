@@ -12,7 +12,7 @@ class Main:
     """
 
     def __init__(self):
-        self._file_name = 'data/random-dataset.csv'
+        self._file_name = 'data/mocked.txt'
         self._extractor = self._get_extractor()
         self._mapper = self._extractor.mapper
 

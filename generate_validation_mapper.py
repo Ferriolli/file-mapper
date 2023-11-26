@@ -19,7 +19,7 @@ def generate_validation_mapper(collection_name: str, mode: str):
         ex = ex[0]
         for key, value in ex.items():
             if key not in system_cols:
-                base_dict['schema'].update({key: []})
+                base_dict['schema'].update({key: {}})
 
     with open(f'validation_mappers/{collection_name}.{mode}', 'w') as e:
         if mode == 'json':
